@@ -1,0 +1,68 @@
+const User = require('../models/userModel');
+const nodemailer = require('nodemailer');
+
+// zovo hkyf sdqo nmwx
+// Nodemailer - Create a transporter using SMTP
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  port: 587,
+  secure: false, // use STARTTLS (upgrade connection to TLS after connecting)
+  auth: {
+    user: 'tamimtalha834@gmail.com',
+    pass: 'zovohkyfsdqonmwx',
+  },
+});
+
+const registerationController = async (req, res) => {
+  console.log(req.file);
+
+  // Send Verification Link
+  /*
+  const { name, email, password } = req.body;
+
+  const errors = [];
+
+  if (!name) errors.name = `Name required`;
+  if (!email) errors.email = `Email required`;
+  if (!password) errors.password = `Password required`;
+
+  if (errors.name || errors.email || email.password)
+    res.status(400).send(errors);
+
+  //   const existingUser = await User.findOne({ email: email });
+  //   if (existingUser)
+  //     return res.status(400).json({
+  //       message: `The email ${existingUser.email} already exists`,
+  //     });
+
+  const register = new User({
+    name: name,
+    email: email,
+    password: password,
+  });
+
+  register.save();
+
+  // Send a message
+  try {
+    const info = await transporter.sendMail({
+      from: '"Nodemailer Team" <tamimtalha834@gmail.com>', // sender address
+      to: email, // list of recipients
+      subject: 'Please verify the link', // subject line
+      html: `<body style="display:none;font-size:1px;color:#f4f6f9;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;mso-hide:all">Confirm your email address to activate your Node Learning Lab account. This verification link expires in 30 minutes.</body><body style="margin:0;padding:0;width:100%;background-color:#f4f6f9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%"><table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;background-color:#f4f6f9;width:100%"><tr><td align="center" style="padding:40px 16px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif"><table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;max-width:600px;width:100%"><tr><td align="center" style="padding-bottom:24px"><table role="presentation" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0"><tr><td align="center" valign="middle" style="background-color:#2563eb;width:40px;height:40px;border-radius:10px;color:#fff;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:20px;font-weight:700;line-height:40px;text-align:center">&#10003;</td><td valign="middle" style="padding-left:12px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:20px;font-weight:700;color:#0f172a;letter-spacing:-.3px">Node Learning Lab</td></tr></table></td></tr><tr><td style="background-color:#fff;border-radius:12px;padding:36px 32px;border:1px solid #e2e8f0;box-shadow:0 4px 12px rgba(15,23,42,.04)"><table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;width:100%"><tr><td align="left" style="padding-bottom:16px"><span style="display:inline-block;background-color:#eff6ff;color:#1d4ed8;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;padding:6px 12px;border-radius:9999px;border:1px solid #bfdbfe">Account Verification</span></td></tr><tr><td align="left" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:24px;font-weight:700;color:#0f172a;line-height:1.3;padding-bottom:16px">Verify your email address</td></tr><tr><td align="left" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:16px;line-height:1.6;color:#334155;padding-bottom:24px">Hi <strong style="color:#0f172a">${name}</strong>,<br><br>Thanks for signing up for <strong style="color:#0f172a">Node Learning Lab</strong>! To complete your registration and activate your account, please confirm your email address by clicking the button below.</td></tr><tr><td align="center" style="padding:8px 0 28px 0"><!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://example.com/verify-email?token={{verificationToken}}" style="height:48px;v-text-anchor:middle;width:240px" arcsize="17%" stroke="f" fillcolor="#2563eb"><w:anchorlock><center style="color:#fff;font-family:Segoe UI,Arial,sans-serif;font-size:16px;font-weight:600">Verify Email Address</center></v:roundrect><![endif]--><!--[if !mso]><!--><a href="https://example.com/verify-email?token={{verificationToken}}" target="_blank" rel="noopener noreferrer" style="background-color:#2563eb;border:1px solid #1d4ed8;color:#fff;display:inline-block;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:16px;font-weight:600;line-height:48px;padding:0 32px;text-align:center;text-decoration:none;border-radius:8px;box-shadow:0 2px 4px rgba(37,99,235,.2);-webkit-text-size-adjust:none">Verify Email Address</a><!--<![endif]--></td></tr><tr><td align="left" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:14px;line-height:1.6;color:#475569;padding-bottom:24px">This verification link will expire in <strong style="color:#0f172a">30 minutes</strong>. If you did not create an account with Node Learning Lab, you can safely ignore or delete this email.</td></tr><tr><td style="border-top:1px solid #e2e8f0;padding-top:24px;font-size:1px;line-height:1px">&nbsp;</td></tr><tr><td align="left" style="background-color:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:16px"><p style="margin:0 0 8px 0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:13px;line-height:1.5;color:#64748b">If the button above doesn't work, copy and paste this link into your browser:</p><p style="margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:13px;line-height:1.5;word-break:break-all"><a href="https://example.com/verify-email?token={{verificationToken}}" target="_blank" rel="noopener noreferrer" style="color:#2563eb;text-decoration:underline">{{verificationUrl}}</a></p></td></tr></table></td></tr><tr><td align="center" style="padding:24px 16px 0 16px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:13px;line-height:1.6;color:#64748b">Need help? Contact us at<a href="mailto:support@example.com" style="color:#2563eb;text-decoration:underline">tamimtalha834@gmail.com</a><br>&copy; 2027 Node Learning Lab. All rights reserved.</td></tr></table></td></tr></table></body>`, // HTML body
+    });
+
+    console.log('Message sent: %s', info.messageId);
+    // Preview URL is only available when using an Ethereal test account
+    console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+  } catch (err) {
+    console.error('Error while sending mail:', err);
+  }
+
+  res.status(200).json({
+    message: `Check your email for verification link`,
+  });
+  */
+};
+
+module.exports = { registerationController };
