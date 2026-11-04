@@ -188,7 +188,7 @@ const mongoose = require('mongoose');
 
 function mongooseConnect() {
 mongoose
-.connect(process.env.MONGODB_URL)
+.connect(process.env.MONGODB_URI)
 .then(() => console.log(`Established connection with Database`))
 .catch(err => console.log(`Failure to connect to Server`));
 }
@@ -197,4 +197,4 @@ module.exports = mongooseConnect;
 
 <!-- .env -->
 
-MONGODB_URL=mongodb+srv://TalhaDevDaily:%40R0146306c@nodejs-sandbox.zmstzzn.mongodb.net/userDB
+MONGODB_URI=mongodb+srv://TalhaDevDaily:%40R0146306c@nodejs-sandbox.zmstzzn.mongodb.net/userDB
