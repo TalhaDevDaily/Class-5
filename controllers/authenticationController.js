@@ -8,6 +8,21 @@ function registerUser(req, res) {
     name: name,
     email: email,
   });
+
+  register.save();
+
+  res.status(200).json({
+    message: `Please check ${email} for verification.`,
+  });
 }
 
-module.exports = { registerUser };
+// Read all Users
+async function getAll(req, res) {
+  const readAll = await User.find({});
+  res.status(200).json({
+    totalUsers: readAll.length,
+    allUsers: readAll,
+  });
+}
+
+module.exports = { registerUser, getAll };
