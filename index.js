@@ -7,6 +7,7 @@ const {
   readUser,
   deleteUser,
   updateUser,
+  uploadImg,
 } = require('./controllers/authenticationController');
 const middlewareBlockage = require('./middleware/middleBlock');
 
@@ -16,12 +17,13 @@ const crypto = require('crypto');
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, '/tmp/my-uploads');
+    cb(null, './uploads');
   },
   filename: function (req, file, cb) {
     crypto.randomBytes(16, function (err, raw) {
       if (err) return cb(err);
-      cb(null, file.fieldname + '-' + raw.toString('hex'));
+      cb(null, file.fieldname + '-' + raw.toString('hex') + '.jpg');
+      cb(null, Date.now() + '-' + file.originalname);
     });
   },
 });
@@ -29,6 +31,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 app.use(express.json());
+app.use('/uploads', express.static('uploads'));
 
 mongooseConnect();
 
@@ -39,5 +42,7 @@ app.get('/user/all', middlewareBlockage, readUser);
 app.delete('/user/remove/:id', deleteUser);
 
 app.post('/user/change/:id', updateUser);
+
+app.post('/user/upload', upload.single('malaysia'), uploadImg);
 
 app.listen(8000, () => console.log(`Server is running`));

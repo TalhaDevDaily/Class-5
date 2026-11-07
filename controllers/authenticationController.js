@@ -81,6 +81,7 @@ async function deleteUser(req, res) {
   });
 }
 
+// Update User
 async function updateUser(req, res) {
   const { id } = req.params;
 
@@ -99,6 +100,9 @@ async function updateUser(req, res) {
   });
 }
 
-async function uploadImg(req, res) {}
+// Upload Image
+async function uploadImg(req, res) {
+  res.status(200).json({ message: `Image has been uploaded!` });
+}
 
-module.exports = { createUser, readUser, deleteUser, updateUser };
+module.exports = { createUser, readUser, deleteUser, updateUser, uploadImg };
