@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 function mongooseConnect() {
   return mongoose
     .connect(process.env.MONGODB_URI)
-    .then(() => console.log(`Established connection with Database`))
-    .catch(err => console.log(`Failure to connect to the Database: ${err}`));
+    .then(() => console.log(`Connection with server Established!`))
+    .catch(err => console.log(`Failed to connect to DB`));
 }
 
 module.exports = mongooseConnect;
