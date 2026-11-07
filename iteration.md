@@ -91,7 +91,7 @@ module.exports = middlewareBlockage;
 const User = require('../models/userModel');
 const nodemailer = require('nodemailer');
 
-// zovo hkyf sdqo nmwx
+// nphu bhea ugtk chme
 // Nodemailer - Create a transporter using SMTP
 const transporter = nodemailer.createTransport({
 service: 'gmail',
@@ -99,7 +99,7 @@ port: 587,
 secure: false, // use STARTTLS (upgrade connection to TLS after connecting)
 auth: {
 user: 'tamimtalha834@gmail.com',
-pass: 'zovohkyfsdqonmwx',
+pass: 'nphubheaugtkchme',
 },
 });
 
